@@ -58,3 +58,10 @@ the following sequence, and eating it would swallow a real code point.  So
 A second edge: the Unicode-at-on escape is only recognised when `uao=True`
 (the default).  With `uao=False`, the four bytes are an ordinary unmapped
 pair followed by two more bytes, and strict mode will raise.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
